@@ -48,12 +48,12 @@ public class DiffEntity {
     }
 
     @Override
-    public boolean equals(final Object that) {
+    public final boolean equals(final Object that) {
         return EqualsBuilder.reflectionEquals(this, that);
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
     }
 

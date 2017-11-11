@@ -4,8 +4,6 @@ import org.apache.log4j.BasicConfigurator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.logging.Logger;
-
 /**
  * <p>
  * This is the main class of the application responsible for handling Spring initialization
