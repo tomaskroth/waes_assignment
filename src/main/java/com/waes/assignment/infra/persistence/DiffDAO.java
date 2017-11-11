@@ -31,8 +31,7 @@ public class DiffDAO implements DiffRepository {
 
     @Override
     public Boolean saveDiffEntity(final DiffEntity diffEntity) {
-        DiffEntity savedEntity = storage.put(diffEntity.getId(), diffEntity);
-
-        return savedEntity != null;
+        storage.put(diffEntity.getId(), diffEntity);
+        return true;
     }
 }

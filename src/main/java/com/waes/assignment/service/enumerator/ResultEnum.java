@@ -12,7 +12,9 @@ public enum ResultEnum {
 
     EQUAL("Values are equal"),
     DIFFERENT_SIZE("Values are of different size"),
-    DIFFERENT("Vales have differences");
+    DIFFERENT("Values have differences"),
+    NOT_FOUND("Entity not found to evaluate")
+    ;
 
     private final String stringValue;
 
