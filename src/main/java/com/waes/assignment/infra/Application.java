@@ -17,9 +17,6 @@ import java.util.logging.Logger;
 @SpringBootApplication(scanBasePackages = "com.waes.assignment")
 public class Application {
 
-    //Using literals here because this is the only situation that we'll have a static method using a logger.
-    private static final Logger logger = Logger.getLogger("Application");
-
     /**
      * This method actually starts the application
      *
@@ -28,6 +25,5 @@ public class Application {
     public static void main(final String[] args) {
         BasicConfigurator.configure();
         SpringApplication.run(Application.class, args);
-        logger.info("Application initialized");
     }
 }
