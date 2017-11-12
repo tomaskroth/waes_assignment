@@ -90,6 +90,15 @@ public class DiffServiceImpl implements DiffService {
         return diffRepository.saveDiffEntity(diffEntity);
     }
 
+    /**
+     * Process the difference from the right to left side of the entity
+     * If equal return that it's equal
+     * If the size is different, return that
+     * If of same size returns the offset and length of each difference.
+     *
+     * @param diffEntity The entity being analyzed
+     * @return ResultDTO with the result of the evalution
+     */
     private ResultDTO processDifference(final DiffEntity diffEntity) {
         ResultDTO resultDTO;
 
@@ -107,6 +116,13 @@ public class DiffServiceImpl implements DiffService {
         return resultDTO;
     }
 
+    /**
+     * Process the differences inside two strings of equal size, returning the offset and length of each difference
+     *
+     * @param leftValue The first string
+     * @param rightValue The second string
+     * @return A list of DiffDetailDTO containing the offset and length of each difference
+     */
     private ArrayList<DiffDetailDTO> getDiffDetails(final String leftValue, final String rightValue) {
         ArrayList<DiffDetailDTO> differences = new ArrayList<>();
 
