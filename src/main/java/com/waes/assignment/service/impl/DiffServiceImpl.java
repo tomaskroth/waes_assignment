@@ -119,7 +119,7 @@ public class DiffServiceImpl implements DiffService {
     /**
      * Process the differences inside two strings of equal size, returning the offset and length of each difference
      *
-     * @param leftValue The first string
+     * @param leftValue  The first string
      * @param rightValue The second string
      * @return A list of DiffDetailDTO containing the offset and length of each difference
      */
@@ -148,6 +148,11 @@ public class DiffServiceImpl implements DiffService {
                 }
             }
         }
+
+        if (capturingDiff) {
+            differences.add(new DiffDetailDTO(diffStartingOffset, diffLength));
+        }
+
         return differences;
     }
 }

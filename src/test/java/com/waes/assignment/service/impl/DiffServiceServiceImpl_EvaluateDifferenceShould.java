@@ -102,7 +102,7 @@ public class DiffServiceServiceImpl_EvaluateDifferenceShould extends BaseDiffSer
 
         ResultDTO resultDTO = diffService.evaluateDifference(ID);
         Assert.assertEquals("Result value incorrect", ResultEnum.DIFFERENT.getStringValue(), resultDTO.getResult());
-        Assert.assertEquals("Number of differences found incorrect",expectedDifferences, resultDTO.getDifferences().size());
+        Assert.assertEquals("Number of differences found incorrect", expectedDifferences, resultDTO.getDifferences().size());
         Assert.assertEquals("Offset is not the expected", expectedOffset, resultDTO.getDifferences().get(0).getOffset());
         Assert.assertEquals("Length is not the expected", expectedLength, resultDTO.getDifferences().get(0).getLength());
     }
@@ -125,13 +125,56 @@ public class DiffServiceServiceImpl_EvaluateDifferenceShould extends BaseDiffSer
 
         ResultDTO resultDTO = diffService.evaluateDifference(ID);
         Assert.assertEquals("Result value incorrect", ResultEnum.DIFFERENT.getStringValue(), resultDTO.getResult());
-        Assert.assertEquals("Number of differences found incorrect",expectedDifferences, resultDTO.getDifferences().size());
+        Assert.assertEquals("Number of differences found incorrect", expectedDifferences, resultDTO.getDifferences().size());
         Assert.assertEquals("Offset is not the expected", expectedFirstOffset, resultDTO.getDifferences().get(0).getOffset());
         Assert.assertEquals("Length is not the expected", expectedFirstLength, resultDTO.getDifferences().get(0).getLength());
         Assert.assertEquals("Offset is not the expected", expectedSecondOffset, resultDTO.getDifferences().get(1).getOffset());
         Assert.assertEquals("Length is not the expected", expectedSecondeLength, resultDTO.getDifferences().get(1).getLength());
     }
 
+
+    @Test
+    public void workWhenTheLastCharacterHasDifferences() {
+        DiffEntity diffEntity = new DiffEntity(ID);
+        diffEntity.setLeft("[Kevin Cox_]");
+        diffEntity.setRight("[Kevin _Cox)");
+
+        int expectedDifferences = 1;
+        Integer expectedOffset = 7;
+        Integer expectedLength = 5;
+
+
+        when(diffRepository.getDiffEntity(ID)).thenReturn(diffEntity);
+
+        ResultDTO resultDTO = diffService.evaluateDifference(ID);
+        Assert.assertEquals("Result value incorrect", ResultEnum.DIFFERENT.getStringValue(), resultDTO.getResult());
+        Assert.assertEquals("Number of differences found incorrect", expectedDifferences, resultDTO.getDifferences().size());
+        Assert.assertEquals("Offset is not the expected", expectedOffset, resultDTO.getDifferences().get(0).getOffset());
+        Assert.assertEquals("Length is not the expected", expectedLength, resultDTO.getDifferences().get(0).getLength());
+    }
+
+    /**
+     * This test is just to show that I was not able to repoduce the reported bug
+     */
+    @Test
+    public void bugReportedNotFound() {
+        DiffEntity diffEntity = new DiffEntity(ID);
+        diffEntity.setLeft("[Kevin Cox_]");
+        diffEntity.setRight("[Kevin _Cox]");
+
+        int expectedDifferences = 1;
+        Integer expectedOffset = 7;
+        Integer expectedLength = 4;
+
+
+        when(diffRepository.getDiffEntity(ID)).thenReturn(diffEntity);
+
+        ResultDTO resultDTO = diffService.evaluateDifference(ID);
+        Assert.assertEquals("Result value incorrect", ResultEnum.DIFFERENT.getStringValue(), resultDTO.getResult());
+        Assert.assertEquals("Number of differences found incorrect", expectedDifferences, resultDTO.getDifferences().size());
+        Assert.assertEquals("Offset is not the expected", expectedOffset, resultDTO.getDifferences().get(0).getOffset());
+        Assert.assertEquals("Length is not the expected", expectedLength, resultDTO.getDifferences().get(0).getLength());
+    }
 
 
 }
